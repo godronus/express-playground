@@ -23,3 +23,13 @@ export function errorHandler(
     stack: env.NODE_ENV === "production" ? "🥞" : err.stack,
   });
 }
+
+export function setCacheTtl(seconds: number = 600) {
+  // Default to 10 minutes
+  return (req: Request, res: Response, next: NextFunction) => {
+    // Set caching headers
+    res.set("Cache-Control", `public, max-age=${seconds}`); // Cache for 10 minutes
+    res.set("Expires", new Date(Date.now() + seconds * 1000).toUTCString()); // Set expiration time
+    next();
+  };
+}

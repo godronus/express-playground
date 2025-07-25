@@ -1,0 +1,54 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ESI poc</title>
+    <!-- Add Tailwind CSS via CDN -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <header class="bg-orange-600 text-black p-6 text-center">
+      <h1 class="text-4xl font-extrabold mb-2">Proof of Concept</h1>
+      <p class="text-lg font-light">Edge Script Injection</p>
+    </header>
+    <main class="p-4 space-y-6">
+      <h2 class="text-xl py-6">
+        This home page will include ESI injected blocks displaying timestamps
+        and route information:
+      </h2>
+      <section class="h-1/5 bg-white shadow-md rounded-lg p-6 flex flex-col">
+        <h3 class="text-xl font-bold text-orange-600 mb-4">ESI Include: Short
+          Cache Duration</h3>
+        <div class="bg-orange-100 p-4 rounded shadow flex-grow">
+          <p class="text-lg mb-4">
+            Current timestamp:
+            <strong>{{timestamp}}</strong>
+          </p>
+          <p class="text-lg">
+            Current route:
+            <strong>{{route}}</strong>
+          </p>
+        </div>
+      </section>
+      <section class="h-1/5 bg-white shadow-md rounded-lg p-6 flex flex-col">
+        <h3 class="text-xl font-bold text-blue-600 mb-4">ESI Include: Long Cache
+          Duration</h3>
+        <div class="bg-blue-100 p-4 rounded shadow flex-grow">
+          <p class="text-lg mb-4">
+            Current timestamp:
+            <strong>{{timestamp}}</strong>
+          </p>
+          <p class="text-lg">
+            Current route:
+            <strong>{{route}}</strong>
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer
+      class="bg-gray-800 text-white p-4 text-center fixed bottom-0 w-full"
+    >
+      <p>Rendered on origin at: <strong>{{timestamp}}</strong> </p>
+    </footer>
+  </body>
+</html>
