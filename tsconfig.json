@@ -4,11 +4,11 @@
     "module": "commonjs",
     "strict": true,
     "noImplicitAny": true,
-    "outDir": "dist",
+    "outDir": "dist/api",
     "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["./*.js", "server/**/*.ts", "test/**/*.ts"]
+  "include": ["./*.js", "api/**/*.ts", "test/**/*.ts"]
 }

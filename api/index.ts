@@ -6,13 +6,11 @@ import morgan from "morgan";
 import path from "path";
 
 import { env } from "./env.js";
-import api from "./api/index.js";
 import * as middlewares from "./middlewares.js";
-import { timestampString } from "./utils/timestamp.js";
+import { secondsToColor, timestampString } from "./utils";
 import { setCacheTtl } from "./middlewares.js";
 
 const port = env.PORT || 9001;
-console.log("Farq: port", port);
 
 const app = express();
 
@@ -27,24 +25,35 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-console.log("Farq: public:", path.join(__dirname, "../public"));
 app.use(express.static(path.join(__dirname, "../public")));
 
-// app.get<object, MessageResponse>("/", (req, res) => {
-//   res.json({
-//     message: "🦄🌈✨👋🌎🌍🌏✨🌈🦄",
-//   });
-// });
-
-app.get("/", setCacheTtl(), (req, res) => {
-  res.render("home", { layout: false, timestamp: timestampString() });
+app.get("/", setCacheTtl(21), (req, res) => {
+  res.render("home", {
+    layout: false,
+    timestamp: timestampString(),
+    color: secondsToColor(),
+  });
 });
 
-app.get("/block1", setCacheTtl(10), (req, res) => {
-  res.render("widget", { layout: false, timestamp: timestampString() });
+app.get("/block1", setCacheTtl(5), (req, res) => {
+  res.render("widget", {
+    layout: false,
+    timestamp: timestampString(),
+    title: "ESI Include: Short CacheDuration (5s)",
+    blockColor: secondsToColor(),
+    route: "/block1",
+  });
 });
 
-app.use("/api/v1", api);
+app.get("/block2", setCacheTtl(12), (req, res) => {
+  res.render("widget", {
+    layout: false,
+    timestamp: timestampString(),
+    title: "ESI Include: Long Cache Duration  (12s)",
+    blockColor: secondsToColor(),
+    route: "/block2",
+  });
+});
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

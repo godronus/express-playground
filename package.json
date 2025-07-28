@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node --env-file=.env dist/index.js",
     "dev": "npm-run-all -p watch:css start:server",
-    "start:server": "tsx watch --env-file=.env server/index.ts",
+    "start:server": "tsx watch --env-file=.env api/index.ts",
     "build": "npm-run-all -p build:css build:server",
     "build:server": "tsc",
     "build:css-debug": "npx @tailwindcss/cli -i ./tailwind.css -o ./public/styles.css",

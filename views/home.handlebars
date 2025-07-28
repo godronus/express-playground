@@ -16,37 +16,21 @@
         This home page will include ESI injected blocks displaying timestamps
         and route information:
       </h2>
-      <section class="h-1/5 bg-white shadow-md rounded-lg p-6 flex flex-col">
-        <h3 class="text-xl font-bold text-orange-600 mb-4">ESI Include: Short
-          Cache Duration</h3>
-        <div class="bg-orange-100 p-4 rounded shadow flex-grow">
-          <p class="text-lg mb-4">
-            Current timestamp:
-            <strong>{{timestamp}}</strong>
-          </p>
-          <p class="text-lg">
-            Current route:
-            <strong>{{route}}</strong>
-          </p>
-        </div>
-      </section>
-      <section class="h-1/5 bg-white shadow-md rounded-lg p-6 flex flex-col">
-        <h3 class="text-xl font-bold text-blue-600 mb-4">ESI Include: Long Cache
-          Duration</h3>
-        <div class="bg-blue-100 p-4 rounded shadow flex-grow">
-          <p class="text-lg mb-4">
-            Current timestamp:
-            <strong>{{timestamp}}</strong>
-          </p>
-          <p class="text-lg">
-            Current route:
-            <strong>{{route}}</strong>
-          </p>
-        </div>
-      </section>
+      <div>
+        <esi:include
+          src="/block1"
+          xmlns:esi="http://www.edge-delivery.org/esi/1.0"
+        />
+      </div>
+      <div>
+        <esi:include
+          src="/block2"
+          xmlns:esi="http://www.edge-delivery.org/esi/1.0"
+        />
+      </div>
     </main>
     <footer
-      class="bg-gray-800 text-white p-4 text-center fixed bottom-0 w-full"
+      class="bg-{{color}}-100 text-black p-4 text-center fixed bottom-0 w-full"
     >
       <p>Rendered on origin at: <strong>{{timestamp}}</strong> </p>
     </footer>
