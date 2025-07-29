@@ -55,6 +55,83 @@ app.get("/block2", setCacheTtl(12), (req, res) => {
   });
 });
 
+app.get("/400", (req, res) => {
+  res.status(400).render("error", {
+    layout: false,
+    message: "Bad Request",
+    timestamp: timestampString(),
+  });
+});
+
+app.get("/401", (req, res) => {
+  res.status(401).render("error", {
+    layout: false,
+    message: "Unauthorized",
+    timestamp: timestampString(),
+  });
+});
+
+app.get("/402", (req, res) => {
+  res.status(402).render("error", {
+    layout: false,
+    message: "Payment Required",
+    timestamp: timestampString(),
+  });
+});
+
+app.get("/403", (req, res) => {
+  res.status(403).render("error", {
+    layout: false,
+    message: "Forbidden",
+    timestamp: timestampString(),
+  });
+});
+
+app.get("/404", (req, res) => {
+  res.status(404).render("error", {
+    layout: false,
+    message: "Not Found",
+    timestamp: timestampString(),
+  });
+});
+
+app.get("/417", (req, res) => {
+  res.status(417).render("error", {
+    layout: false,
+    message: "Expectation Failed",
+    timestamp: timestampString(),
+  });
+});
+
+app.get("/500", (req, res) => {
+  res.status(500).render("error", {
+    layout: false,
+    message: "Internal Server Error",
+    timestamp: timestampString(),
+  });
+});
+app.get("/501", (req, res) => {
+  res.status(501).render("error", {
+    layout: false,
+    message: "Not Implemented",
+    timestamp: timestampString(),
+  });
+});
+app.get("/502", (req, res) => {
+  res.status(502).render("error", {
+    layout: false,
+    message: "Bad Gateway",
+    timestamp: timestampString(),
+  });
+});
+app.get("/503", (req, res) => {
+  res.status(503).render("error", {
+    layout: false,
+    message: "Service Unavailable",
+    timestamp: timestampString(),
+  });
+});
+
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
