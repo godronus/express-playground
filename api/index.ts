@@ -55,81 +55,59 @@ app.get("/block2", setCacheTtl(12), (req, res) => {
   });
 });
 
+app.get("/200", (req, res) => {
+  res.status(200).send("All good!!");
+});
+
+app.get("/201", (req, res) => {
+  res.status(200).send("All good!!");
+});
+
 app.get("/400", (req, res) => {
-  res.status(400).render("error", {
-    layout: false,
-    message: "Bad Request",
-    timestamp: timestampString(),
-  });
+  res.status(400).send("Bad Request");
 });
 
 app.get("/401", (req, res) => {
-  res.status(401).render("error", {
-    layout: false,
-    message: "Unauthorized",
-    timestamp: timestampString(),
-  });
+  res.status(401).send("Unauthorized");
 });
 
 app.get("/402", (req, res) => {
-  res.status(402).render("error", {
-    layout: false,
-    message: "Payment Required",
-    timestamp: timestampString(),
-  });
+  // set a x-reject header to simulate a payment required error
+  res.set("x-reject", "Payment Required");
+  res.status(402).send("Payment Required");
 });
 
 app.get("/403", (req, res) => {
-  res.status(403).render("error", {
-    layout: false,
-    message: "Forbidden",
-    timestamp: timestampString(),
-  });
+  res.status(403).send("Forbidden");
 });
 
 app.get("/404", (req, res) => {
-  res.status(404).render("error", {
-    layout: false,
-    message: "Not Found",
-    timestamp: timestampString(),
-  });
+  res.status(404).send("Not Found");
+});
+
+app.get("/405", (req, res) => {
+  res.status(405).send("Method Not Allowed");
 });
 
 app.get("/417", (req, res) => {
-  res.status(417).render("error", {
-    layout: false,
-    message: "Expectation Failed",
-    timestamp: timestampString(),
-  });
+  res.status(417).send("Expectation Failed");
+});
+
+app.get("/418", (req, res) => {
+  res.status(418).send("I'm a teapot");
 });
 
 app.get("/500", (req, res) => {
-  res.status(500).render("error", {
-    layout: false,
-    message: "Internal Server Error",
-    timestamp: timestampString(),
-  });
+  res.status(500).send("Internal Server Error");
 });
 app.get("/501", (req, res) => {
-  res.status(501).render("error", {
-    layout: false,
-    message: "Not Implemented",
-    timestamp: timestampString(),
-  });
+  res.status(501).send("Not Implemented");
 });
 app.get("/502", (req, res) => {
-  res.status(502).render("error", {
-    layout: false,
-    message: "Bad Gateway",
-    timestamp: timestampString(),
-  });
+  res.status(502).send("Bad Gateway");
 });
 app.get("/503", (req, res) => {
-  res.status(503).render("error", {
-    layout: false,
-    message: "Service Unavailable",
-    timestamp: timestampString(),
-  });
+  res.status(503).send("Service Unavailable");
 });
 
 app.use(middlewares.notFound);
