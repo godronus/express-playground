@@ -7,7 +7,7 @@ import path from "path";
 
 import { env } from "./env.js";
 import * as middlewares from "./middlewares.js";
-import { secondsToColor, timestampString } from "./utils";
+import { cacheColor, secondsToColor, timestampString } from "./utils";
 import { setCacheTtl } from "./middlewares.js";
 
 const port = env.PORT || 9001;
@@ -31,7 +31,7 @@ app.get("/", setCacheTtl(21), (req, res) => {
   res.render("home", {
     layout: false,
     timestamp: timestampString(),
-    color: secondsToColor(),
+    color: cacheColor(21),
   });
 });
 
@@ -40,7 +40,7 @@ app.get("/block1", setCacheTtl(5), (req, res) => {
     layout: false,
     timestamp: timestampString(),
     title: "ESI Include: Short CacheDuration (5s)",
-    blockColor: secondsToColor(),
+    blockColor: cacheColor(5),
     route: "/block1",
   });
 });
@@ -50,7 +50,7 @@ app.get("/block2", setCacheTtl(12), (req, res) => {
     layout: false,
     timestamp: timestampString(),
     title: "ESI Include: Long Cache Duration  (12s)",
-    blockColor: secondsToColor(),
+    blockColor: cacheColor(12),
     route: "/block2",
   });
 });
@@ -72,8 +72,6 @@ app.get("/401", (req, res) => {
 });
 
 app.get("/402", (req, res) => {
-  // set a x-reject header to simulate a payment required error
-  res.set("x-reject", "Payment Required");
   res.status(402).send("Payment Required");
 });
 

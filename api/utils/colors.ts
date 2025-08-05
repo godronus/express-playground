@@ -11,4 +11,14 @@ const secondsToColor = (date: Date = new Date()): string => {
   return colors[index === 6 ? 5 : index];
 };
 
-export { secondsToColor };
+/**
+ * Returns a color based on the timestamp and cache duration.
+ * The color changes every time the cache is invalidated.
+ */
+const cacheColor = (cacheDuration: number, date: Date = new Date()): string => {
+  const seconds = dayjs(date).unix(); // Use unix timestamp for consistency
+  const index = Math.floor((seconds / cacheDuration) % colors.length);
+  return colors[index];
+};
+
+export { cacheColor, secondsToColor };
