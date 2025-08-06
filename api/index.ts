@@ -35,6 +35,14 @@ app.get("/", setCacheTtl(21), (req, res) => {
   });
 });
 
+app.get("/418", setCacheTtl(5), (req, res) => {
+  res.render("418", {
+    layout: false,
+    trace_id: "00-4c03b7ac79e263752ae9ca72a208c867-823b86f1f44b90ba-01",
+    your_ip: " 2001:8a0:46f4:9d00:511a:9aaf:33e9:c405",
+  });
+});
+
 app.get("/block1", setCacheTtl(5), (req, res) => {
   res.render("widget", {
     layout: false,
