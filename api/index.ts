@@ -63,6 +63,13 @@ app.get("/block2", setCacheTtl(12), (req, res) => {
   });
 });
 
+app.get("/local", (req, res) => {
+  if (req.headers["x-auth-header"]) {
+    res.status(200).send("All good!!");
+  }
+  res.status(500).send("Missing x-auth-header!!");
+});
+
 app.get("/200", (req, res) => {
   res.status(200).send("All good!!");
 });
