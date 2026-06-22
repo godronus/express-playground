@@ -71,7 +71,15 @@ app.get("/local", (req, res) => {
 });
 
 app.get("/200", (req, res) => {
-  res.status(200).send("All good!!");
+  res.status(200).send("GET - All good!!");
+});
+
+app.put("/200", (req, res) => {
+  res.status(200).send("PUT - All good!!");
+});
+
+app.post("/200", (req, res) => {
+  res.status(200).send("POST - All good!!");
 });
 
 app.get("/201", (req, res) => {
