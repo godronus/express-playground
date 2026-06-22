@@ -70,6 +70,29 @@ app.get("/local", (req, res) => {
   res.status(500).send("Missing x-auth-header!!");
 });
 
+// Forward-auth header-injection probe.
+// The Gcore CDN "headers" filter (sso_guard) verifies the session cookie and
+// injects x-sso-user (+ x-sso-email/name) before forwarding to the origin. This
+// route echoes exactly what THIS origin (conventional Express app on Vercel,
+// i.e. NOT a FastEdge app) actually receives — to confirm whether proxy-wasm-
+// injected request headers reach a conventional origin (they were dropped when
+// the origin was a FastEdge app). Always 200 so the headers are visible even
+// when the identity header is absent.
+app.get("/checkout", (req, res) => {
+  const h = (name: string) => req.headers[name.toLowerCase()] ?? null;
+  res.status(200).json({
+    probe: "forward-auth header injection",
+    injectedHeaderReachedOrigin: h("x-sso-user") !== null,
+    receivedIdentity: {
+      "x-sso-user": h("x-sso-user"),
+      "x-sso-email": h("x-sso-email"),
+      "x-sso-name": h("x-sso-name"),
+      "x-forwarded-user": h("x-forwarded-user"),
+    },
+    allHeaders: req.headers,
+  });
+});
+
 app.get("/200", (req, res) => {
   res.status(200).send("GET - All good!!");
 });
